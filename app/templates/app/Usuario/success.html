@@ -1,0 +1,22 @@
+{%extends 'app/base2.html'%}
+{% load static %}
+{% block contenido %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-8">
+        <div class="card" style="width:600px">
+            <img class="card-img-top " src="{% static 'app/img/SuccessPay.png'%}" alt="Card image" style="width:400px; display: block; margin: auto;">
+            <div class="card-body text-center">
+              <h4 class="card-title">Pago recibido exitosamente!</h4>
+              <p class="card-text">Tu codigo de pedido es 0001</p>
+              <p class="card-text">Prepararemos tu pedido en breve</p>
+              <p class="card-text">Recibira toda la informacion por correo electronico</p>
+              <a href="{% url 'products'%}" class="btn btn-success">Volver a productos</a>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+</div>
+{% endblock %}

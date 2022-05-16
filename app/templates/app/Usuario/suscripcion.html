@@ -1,0 +1,52 @@
+{%extends 'app/base.html'%}
+{% load static %}
+{% block contenido %}
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-8">
+    <table class="table table-bordered mt-3">
+      <thead class="thead-dark">
+        <tr>
+          <th>Tipo Suscripcion</th>
+          <th>Fecha inicio</th>
+          <th>Fecha termino</th>
+          <th>Estado</th>
+          <th>Monto cancelado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-warning">
+          <td>Suscripcion 1 mes</td>
+          <td>21/02/2022</td>
+          <td>21/03/2022</td>
+          <td>En curso</td>
+          <td>$4.000</td>
+        </tr>
+        <tr class="table-success">
+          <td>Suscripcion 1 mes</td>
+          <td>21/01/2022</td>
+          <td>21/02/2022</td>
+          <td>Renovada</td>
+          <td>$4.000</td>
+        </tr>
+        <tr class="table-success">
+          <td>Suscripcion 1 mes</td>
+          <td>21/12/2021</td>
+          <td>21/01/2022</td>
+          <td>Renovada</td>
+          <td>$4.000</td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar" value="Renovar Suscripcion">
+      <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar" value="Cambiar Suscripcion">
+      <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar" value="Cancelar Suscripcion">
+  </div>
+
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
+{% endblock %}

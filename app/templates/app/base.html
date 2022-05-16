@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good_Plant_Store</title>
+    {% load static %}
+    <script src="{% static 'app/js/alertas.js'%}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.css" integrity="sha512-40/Lc5CTd+76RzYwpttkBAJU68jKKQy4mnPI52KKOHwRBsGcvQct9cIqpWT/XGLSsQFAcuty1fIuNgqRoZTiGQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-info navbar-dark">
+        <!-- Brand -->
+        <div class="imagenLogo">
+          <img src="{% static 'app/img/logoGoodPlant.png'%}" alt="" width="70px">
+        </div>
+        <a class="navbar-brand" href="#">GoodPlant</a>
+      
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'products'%}">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'cart'%}">Carrito de compras</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalFundacion">Unete a la Fundacion</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalContacto2"> Contacto</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 bg-success text-white">
+                <div class="row perfil">
+                    <div class="col-sm-12 mt-4 d-flex justify-content-center">
+                        <img  class ="avatar" src="{% static 'app/img/DefaultUser.png'%}" alt="" width="100px">
+                    </div>
+                    <div class="col-sm-12 mt-4 d-flex justify-content-center">
+                            <p>Bienvenido JBtesla</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                      <ul class="nav nav-pills flex-column mt-3">
+                        <li class="nav-item mt-1">
+                          <a class="nav-link " href="{% url 'profile'%}"> <i class="fa fa-id-badge"></i> Perfil</a>
+                        </li>
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'history'%}"><i class="fa fa-clock-rotate-left"></i> Historial Compras</a>
+                        </li>
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'suscribe'%}"><i class="fa-brands fa-gratipay"></i> suscripcion</a>
+                        </li>
+                        <li>
+                          <hr>
+                         </li>
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" onclick="alertaCerrar()" ><i class="fa fa-right-from-bracket"></i> Cerrar Sesión</a>
+                        </li>
+                      </ul>
+                    </div>
+                    </div>
+                </div>
+            <div class="col-sm-10">
+              <!--block contenido-->
+                {% block contenido %}
+
+                {% endblock %}
+                <!---->
+                <div class="row">
+                    <div class="col-sm-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--block contenido -->
+    <!-- The Modal -->
+  <div class="modal" id="ModalContacto2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Contacto</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div style="text-align: center;">
+            <img src="{% static 'app/img/Contacto.png'%}" alt="" width="50px">
+        </div>
+          <p><i class="fa-solid fa-square-phone"></i> Numero de Contacto: +5695453525</p>
+          <p><i class="fa-brands fa-instagram"></i> Instagram: Good_Plant_Store</p>
+          <p><i class="fa-brands fa-facebook-square"></i> Facebook: Good_Plant_Store</p>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <!-- The Modal -->
+        <div class="modal" id="ModalFundacion">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Unete a la Fundacion</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <!-- Modal body -->
+              <div class="modal-body mt-3">
+                  <div>
+                    <div style="text-align: center;">
+                      <img src="{% static 'app/img/registroUsuario.png'%}" alt="" width="50">
+                      <form action="{% url 'suscribe'%}" method="get">
+                    </div>
+                          <div class="form-group">
+                              <label for="txtUser">Nombre Completo</label>
+                              <input type="text" placeholder="Ingrese Nombre" class="form-control" name="txtName" id="txtName">
+                          </div>
+                          <div class="txtEmail">
+                              <label for="txtEmail">Correo Electronico</label>
+                              <input type="text" placeholder="Ingresa tu correo" class="form-control" name="txtEmail" id="txtEmail">
+                          </div>
+                          <div>
+                            <label for="txtNumcon">Numero Contacto</label>
+                            <input type="text" placeholder="Ingrese numero contacto" class="form-control" name="txtNumcon" id="txtNumcon">
+                        </div>
+                          <div class="tittlePlan mb-3 mt-3">
+                            <h6>Planes de Suscripcion:</h6>
+                        </div>
+                          <div class="checkbox mb-3">
+                            <label for="checkbox">Un mes por $4.000</label>
+                            <input type="checkbox">
+                        </div>
+                        <div class="checkbox mb-3">
+                          <label for="checkbox">6 meses por $20.000</label>
+                          <input type="checkbox">
+                      </div>
+                        <div class="checkbox mb-3">
+                          <label for="checkbox">1 año por $30.000</label>
+                          <input type="checkbox">
+                      </div>
+                      <div class="payMethod mb-3 mt-3">
+                        <h6>Metodos de pago:</h6>
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Seleccione...
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Paypal</a>
+                            <a class="dropdown-item" href="#">WebPay</a>
+                            <a class="dropdown-item" href="#">Targeta Registrada</a>
+                          </div>
+                        </div>
+                      </div>
+                          <div style="text-align: center;">
+                              <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar">
+                              <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar">
+                          </div>
+                      </form>
+                  </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+<footer class="bg-dark text-center text-white">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-1">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <img src="{% static 'app/img/logoFooter.png'%}" alt="" width="50px">
+    <a class="text-white" href="#">Good_Plant_Store</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+        <!-- jslibrary -->
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

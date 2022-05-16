@@ -1,0 +1,102 @@
+body {
+    height: auto;
+    background-image: url("../img/FondoPG.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.imagenLogo{
+    width: 70px;
+    transition: all 1s;
+}
+.imagenLogo:hover {
+    -webkit-transform: rotateY(180deg);
+    -webkit-transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+}
+.container-fluid{
+    justify-content: space-around;
+}
+@media(max-width:1000px){
+    .row{
+        padding: 20px 50px;
+    }
+}
+@media(max-width:700px){
+    .row{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 600px) {
+    table {
+        width:100%;
+    }
+    thead {
+        display: none;
+    }
+    tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+    tr td:first-child {
+        background: #f0f0f0;
+        font-weight:bold;
+        font-size:1.3em;
+    }
+    tbody td {
+        display: block;
+        text-align:center;
+    }
+    tbody td:before {
+        content: attr(data-th);
+        display: block;
+        text-align:center;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .mainItems {
+      grid-template-columns: auto;
+    }
+  }
+.nav-link{
+    color: white;
+}
+
+.nav-link .fa{
+    transition: all 1s;
+}
+.nav-link:hover .fa{
+    transform: rotate(360deg);
+    font-size: 18px;
+}
+.nav-link .fa-brands{
+    transition: all 1s;
+}
+.nav-link:hover .fa-brands{
+    transform: rotate(360deg);
+    font-size: 18px;
+}
+.nav-link:hover{
+    color: white;
+    background-color: gray;
+}
+.activo {
+    background-color: gray;
+}
+.perfil{
+    background-image: url("../img/fondo2.jpg");
+}
+.color-izq{
+    background-color: gray;
+}
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

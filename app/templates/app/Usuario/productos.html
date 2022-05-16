@@ -1,0 +1,48 @@
+{%extends 'app/base2.html'%}
+{% load static %}
+{% block contenido %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      </div>
+      <div class="col-sm-8 flex-column mt-3">
+          <div class="row">
+          {% for aux in lista_Productos %}
+            <div class="col-sm-4 mt-3 mb-3">
+              <div class="card" style="width:280px">
+                {% if aux.imagen %}
+                  <img src="{{ aux.imagen.url }}" class="card-img-top">
+                {% else %}
+                  <img class="card-img-top" src="{% static 'app/img/TierraHojas.jpg'%}" alt="Card image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ aux.nombre }}</h5>
+                  <h6 class="card-title">Codigo: {{ aux.codigo }}&nbsp;|&nbsp; Marca: {{ aux.marca }}</h6>
+                  <p class="card-text">Tipo: {{ aux.tipo }}</p>
+                  <p class="card-text">descripcion: {{ aux.descripcion }}</p>
+                  <p class="card-text">Precio: ${{ aux.precio }}&nbsp;|&nbsp; Stock: {{ aux.stock }}</p>
+                  <div class="btn text-align">
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{ aux.codigo }}">
+                      <input type="hidden" name="nombre_producto" id="nombre_producto" value="{{ aux.nombre }}">
+                      <input type="hidden" name="precio_producto" id="precio_producto" value="{{ aux.precio }}">
+                      <input type="hidden" name="marca_producto" id="marca_producto" value="{{ aux.marca }}">
+                      <input type="hidden" name="stock_producto" id="stock_producto" value="{{ aux.stock }}">
+                      <input type="hidden" name="imagen_producto" id="imagen_producto" value="{{ aux.imagen }}">
+                      <input type="submit" style="cursor: pointer;" value="Agregar al carrito" class="btn btn-success btn-sm ml-auto">
+                    </form>
+                  <a href="#" class="btn btn-primary mt-3">Aplicar Descuento</a>
+                </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+      </div>
+  </div>
+</div>
+{% endblock %}

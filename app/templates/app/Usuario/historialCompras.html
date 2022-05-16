@@ -1,0 +1,56 @@
+{%extends 'app/base.html'%}
+{% load static %}
+{% block contenido %}
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-8">
+    <table class="table mt-3">
+      <thead class="thead-dark">
+        <tr>
+          <th>Numero De Orden</th>
+          <th>Producto</th>
+          <th>Fecha de compra</th>
+          <th>Monto</th>
+          <th>Medio de pago</th>
+          <th>Estado de pago</th>
+          <th>Despacho</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-warning">
+          <td>GP0001</td> 
+          <td>Pala de jardin</td>
+          <td>03/03/2022</td>
+          <td>$9.500</td>
+          <td>Webpay</td>
+          <td>En Preparacion</td>
+          <td><a href="{% url 'segui1'%}">Ver Despacho</a></td>
+        </tr>
+        <tr class="table-success">
+          <td>GP0002</td>
+          <td>Tierra de hojas</td>
+          <td>20/02/2022</td>
+          <td>$7.600</td>
+          <td>Targeta registrada</td>
+          <td>Recibido</td>
+          <td><a href="{% url 'segui2'%}">Ver Despacho</a></td>
+        </tr>
+        <tr class="table-success">
+          <td>GP0003</td>
+          <td>Maceta Good</td>
+          <td>20/02/2022</td>
+          <td>$7.600</td>
+          <td>Targeta registrada</td>
+          <td>Recibido</td>
+          <td><a href="{% url 'segui3'%}">Ver Despacho</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar" value="Verificar">
+      <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar" value="Eliminar">
+  </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{%extends 'app/baseAdmin.html'%}
+{% load static %}
+{% block contenido %}
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Codigo</th>
+            <th>Stock</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Tipo</th>
+            <th>Imagen</th>
+            <th>fecha ingreso</th>
+            <th>fecha modificacion</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for aux in listarproductos %}
+        <tr>
+            <td>{{ aux.codigo }}</td>
+            <td>{{ aux.stock }}</td>
+            <td>{{ aux.nombre }}</td>
+            <td>{{ aux.marca }}</td>
+            <td>{{ aux.precio }}</td>
+            <td>{{ aux.descripcion }}</td>
+            <td>{{ aux.tipo }}</td>
+            <td><img src="{{ aux.imagen.url }}" class="" style="width:100px;"></td>
+            <td>{{ aux.create_at }}</td>
+            <td>{{ aux.update_at }}</td>
+            <td>
+                <a href="{% url 'modify_products' aux.codigo %}" class="btn btn-primary">Modificar</a>
+                <a onclick="alertaBorrarProducto({{ aux.codigo }})" class="btn btn-danger">Eliminar</a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

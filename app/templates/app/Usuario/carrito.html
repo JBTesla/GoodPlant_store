@@ -1,0 +1,71 @@
+{%extends 'app/base2.html'%}
+{% load static %}
+{% block contenido %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      </div>
+      <div class="col-sm-8 flex-column mt-3 text-center">
+        <h2 style="color:black;">Carrito de compras</h2>
+        <p style="color: black;">Puedes revisar tur productos seleccionados antes de pagarlos aqui</p>            
+        <table class="table table-striped">
+          <thead class="thead-dark">
+              <tr>
+                  <th>Imagen</th>
+                  <th>Codigo</th>
+                  <th>Stock</th>
+                  <th>Nombre</th>
+                  <th>Marca</th>
+                  <th>Precio</th>
+                  <th>Descripcion</th>
+                  <th>Tipo</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for aux in listar_carrito %}
+              <tr>
+                  <td><img src="{{ aux.codigo.imagen.url }}" class="" style="width:100px;"></td>
+                  <td>{{ aux.codigo.codigo }}</td>
+                  <td>{{ aux.codigo.stock }}</td>
+                  <td>{{ aux.codigo.nombre }}</td>
+                  <td>{{ aux.codigo.marca }}</td>
+                  <td>${{ aux.codigo.precio }}</td>
+                  <td>{{ aux.codigo.descripcion }}</td>
+                  <td>{{ aux.codigo.tipo }}</td>
+                  <td>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <div class="card" style="width:300px">
+        <div class="card-body">
+          <h4 class="card-title">Total de la compra</h4>
+          <p class="card-text">Total Neto: $34.000</p>
+          <p class="card-text">Descuento: $1.500</p>
+          <p class="card-text">Total a pagar: $32.300</p>
+          <div class="payMethod mb-3 mt-3">
+            <h6>Metodos de pago:</h6>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Seleccione...
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Paypal</a>
+                <a class="dropdown-item" href="#">WebPay</a>
+                <a class="dropdown-item" href="#">Targeta Registrada</a>
+              </div>
+            </div>
+          </div>
+          <a href="{% url 'sucess'%}" class="btn btn-primary">Ir a pagar</a>
+          <a href="{% url 'delete_item'%}" class="btn btn-danger">limpiar Carrito</a>
+
+        </div>
+      </div>
+        </div>
+    </div>
+      <div class="col-sm-4">
+      </div>
+    </div>
+</div>
+{% endblock %}
