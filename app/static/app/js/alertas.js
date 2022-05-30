@@ -1,20 +1,20 @@
 function alertaCerrar(){
     Swal.fire({
         title: 'Esta seguro?',
-        text: "Estas apunto de cerrar seccion!",
+        text: "Estas apunto de cerrar sesion!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Cerrar Seccion!',
+        confirmButtonText: 'Si, Cerrar Sesion!',
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire(
             'Bien, Hasta Luego!',
-            'Tu seccion se ah cerrado.',
+            'Tu seccion se ha cerrado.',
             'success'
           ).then(function(){
-            window.location.href = "/";
+            window.location.href = "/logout/";
           })
         }
       })
@@ -33,7 +33,7 @@ function alertaBorrarProducto(codigo){
       if (result.isConfirmed) {
         Swal.fire(
           'Listo !',
-          'El producto se ah eliminado.',
+          'El producto se ha eliminado.',
           'success'
         ).then(function(){
           window.location.href = "/eliminar_productos/"+codigo+"/";
@@ -57,7 +57,7 @@ function borrarusuario(rut){
       if (result.isConfirmed) {
         Swal.fire(
           'Listo!',
-          'El usuario se ah eliminado.',
+          'El usuario se ha eliminado.',
           'success'
         ).then(function(){
           window.location.href = "/eliminar_usuario/"+rut+"/";

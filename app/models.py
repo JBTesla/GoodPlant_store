@@ -83,28 +83,6 @@ class despacho(models.Model):
     class Meta:
         db_table ='db_despacho'
 
-class tipoUsuario(models.Model):
-    tipoUsuario=models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.tipoUsuario
-    class Meta:
-        db_table ='db_tipo_usuario'
-
-class Usuario(models.Model):
-    rut= models.IntegerField(null=False,primary_key=True)
-    nombre=models.CharField(max_length=30)
-    apellido=models.CharField(max_length=30)
-    email=models.CharField(max_length=30)
-    numero=models.IntegerField()
-    tipo_usuario=models.ForeignKey(tipoUsuario, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to="usuarios", null=True)
-    create_at = models.DateField(auto_now_add=True)
-    update_at = models.DateField(auto_now=True)
-
-    class Meta:
-        db_table ='db_usuario'
-
 class Items_Carrito(models.Model):
     codigo=models.ForeignKey(Producto, on_delete=models.CASCADE)
 

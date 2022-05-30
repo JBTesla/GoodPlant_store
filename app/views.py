@@ -1,8 +1,8 @@
-import re
-from.forms import *
-from.models import *
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render,redirect
-
+from django.contrib import messages
+from .forms import *
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -61,7 +61,8 @@ def agregar_productos(request):
         formulario= productoForm(request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            datos['mensaje'] = 'Producto guardado correctamente'
+            messages.success(request,'Producto guardado correctamente!')
+            
     return render(request, 'app/Administrador/agregar_productos.html',datos)
 
 def modificar_productos(request, codigo):
@@ -91,45 +92,6 @@ def listar_productos(request):
     }
     return render(request, 'app/Administrador/listar_productos.html',datos)
 
-def agregar_usuarios(request):
-    datos={
-        'form2' : usuarioForm()
-    }
-    if request.method == 'POST':
-        formulario= usuarioForm(request.POST, files=request.FILES)
-        if formulario.is_valid():
-            formulario.save()
-            datos['mensaje'] = 'usuario agregado correctamente'
-    return render(request, 'app/Administrador/agregar_usuarios.html',datos)
-
-
-def modificar_usuarios(request, rut):
-    usuario = Usuario.objects.get(rut=rut)
-    datos={
-        'form2' : usuarioForm(instance=usuario)
-    }
-    if request.method == 'POST':
-        formulario= usuarioForm(request.POST, files=request.FILES,instance=usuario)
-        if formulario.is_valid():
-            formulario.save()
-            datos['mensaje'] = 'Usuario modificado correctamente'
-            datos['form2'] = formulario
-
-    return render(request, 'app/Administrador/modificar_usuarios.html',datos)
-
-def eliminar_usuario(request, rut):
-    usuario = Usuario.objects.get(rut=rut)
-    usuario.delete()
-
-    return redirect(to="list_users")
-
-def listar_usuarios(request):
-    usuariosALL= Usuario.objects.all()
-    datos={
-        'listarusuarios' :usuariosALL
-    }
-    return render(request, 'app/Administrador/listar_usuarios.html',datos)
-
 def carrito(request):
     carrito= Items_Carrito.objects.all()
     datos={ 'listar_carrito' :carrito }
@@ -147,3 +109,19 @@ def eliminar_item(request):
     carrito.delete()
 
     return redirect(to="cart")
+
+def register(request):
+    datos = {
+        'form' : FormularioUserResgistro()
+    }
+    if request.method == 'POST':
+        formulario = FormularioUserResgistro(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            #user = authenticate(username=formulario.cleaned_data["username"],password=formulario.cleaned_data["password1"])
+            #login(request,user)
+            messages.success(request,'Registrado correctamente!')
+            #return redirect(to="home")
+        datos["form"] = formulario
+
+    return render(request, 'registration/registro.html', datos)

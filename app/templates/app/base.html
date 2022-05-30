@@ -51,7 +51,7 @@
                         <img  class ="avatar" src="{% static 'app/img/DefaultUser.png'%}" alt="" width="100px">
                     </div>
                     <div class="col-sm-12 mt-4 d-flex justify-content-center">
-                            <p>Bienvenido JBtesla</p>
+                            <p>Bienvenido: {{ user.username }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -66,11 +66,18 @@
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'suscribe'%}"><i class="fa-brands fa-gratipay"></i> suscripcion</a>
                         </li>
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'add_products'%}"><i class="fa fa-circle-plus"></i> Agregar Productos</a>
+                        </li>
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'list_products'%}"><i class="fa fa-file-pen"></i> Editar Productos</a>
+                        </li>
                         <li>
                           <hr>
                          </li>
                         <li class="nav-item mt-1">
-                          <a class="nav-link" onclick="alertaCerrar()" ><i class="fa fa-right-from-bracket"></i> Cerrar Sesión</a>
+                          <a class="nav-link" href="{% url 'logout'%}" ><i class="fa fa-right-from-bracket"></i> Cerrar Sesión</a>
+                          <!--onclick="alertaCerrar()-->
                         </li>
                       </ul>
                     </div>

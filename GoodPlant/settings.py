@@ -135,3 +135,8 @@ MEDIA_URL = '/media/' #( cuando las imagenes ya estan gaurdadas )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #( cuando vamos a guardar )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+LOGIN_REDIRECT_URL = '/perfil/'
+LOGOUT_REDIRECT_URL = '/'

@@ -15,11 +15,8 @@ urlpatterns = [
     path('modificar_productos/<codigo>/', modificar_productos,name="modify_products"),
     path('eliminar_productos/<codigo>/', eliminar_productos,name="eliminar_productos"),
     path('listar_productos/', listar_productos,name="list_products"),
-    path('agregar_usuarios/',agregar_usuarios,name="add_users"),
-    path('modificar_usuarios/<rut>',modificar_usuarios,name="modify_users"),
-    path('eliminar_usuario/<rut>/',eliminar_usuario,name="eliminar_usuario"),
-    path('listar_usuarios/',listar_usuarios,name="list_users"),
     path('carrito/', carrito,name="cart"),
     path('pago_recibido/', pago_recibido,name="sucess"),
     path('eliminar_item/',eliminar_item,name="delete_item"),
+    path('register/',register,name="register"),
 ]

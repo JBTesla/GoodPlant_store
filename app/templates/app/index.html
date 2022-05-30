@@ -31,10 +31,10 @@
               <a class="nav-link" href="{% url 'index'%}">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalRegister">Registrate</a>
+              <a class="nav-link" href="{% url 'register'%}" >Registrate</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"  data-toggle="modal" data-target="#ModalLogin">Iniciar Sesion</a>
+                <a class="nav-link" href="{% url 'login'%}" >Iniciar Sesion</a>
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalContacto">Contacto</a>
@@ -261,7 +261,6 @@
       © 2022 Copyright:
       <img src="{% static 'app/img/logoFooter.png'%}" alt="" width="50px">
       <a class="text-white mr-4" href="#">Good_Plant_Store</a>
-      <a class="text-white" href="#" data-toggle="modal" data-target="#ModalLoginAdmin">Login Administrador</a>
     </div>
     <!-- Copyright -->
   </footer>
