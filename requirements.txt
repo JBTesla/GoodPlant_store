@@ -4,3 +4,6 @@ django
 pillow
 django-admin-interface
 django-crispy-forms
+mysqlclient
+pymysql
+djangorestframework

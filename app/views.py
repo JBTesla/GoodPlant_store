@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .forms import *
@@ -7,28 +8,25 @@ from .models import *
 # Create your views here.
 def index(request):
     return render(request, 'app/index.html')
-
+@login_required
 def perfil(request):
     return render(request, 'app/Usuario/perfilUsuario.html')
-
-def perfil_admin(request):
-    return render(request, 'app/Administrador/perfilAdmin.html')
-
+@login_required
 def historial(request):
     return render(request, 'app/Usuario/historialCompras.html')
-
+@login_required
 def suscripcion(request):
     return render(request, 'app/Usuario/suscripcion.html')
-
+@login_required
 def seguimiento1(request):
     return render(request, 'app/Usuario/seguimientoDespacho1.html')
-
+@login_required
 def seguimiento2(request):
     return render(request, 'app/Usuario/seguimientoDespacho2.html')
-
+@login_required
 def seguimiento3(request):
     return render(request, 'app/Usuario/seguimientoDespacho3.html')
-
+@login_required
 def productos(request):
     productoALL= Producto.objects.all()
     datos ={'lista_Productos' :productoALL}
@@ -53,6 +51,8 @@ def productos(request):
         
     return render(request, 'app/Usuario/productos.html', datos)
 
+@login_required
+@permission_required('app.add_producto')
 def agregar_productos(request):
     datos={
         'form' : productoForm()
@@ -64,7 +64,8 @@ def agregar_productos(request):
             messages.success(request,'Producto guardado correctamente!')
             
     return render(request, 'app/Administrador/agregar_productos.html',datos)
-
+@login_required
+@permission_required('app.change_producto')
 def modificar_productos(request, codigo):
     producto = Producto.objects.get(codigo=codigo)
     datos={
@@ -78,26 +79,28 @@ def modificar_productos(request, codigo):
             datos['form'] = formulario
 
     return render(request, 'app/Administrador/modificar_productos.html',datos)
-
+@login_required
+@permission_required('app.delete_producto')
 def eliminar_productos(request, codigo):
     producto = Producto.objects.get(codigo=codigo)
     producto.delete()
 
     return redirect(to="list_products")
-
+@login_required
+@permission_required('app.add_producto')
 def listar_productos(request):
     productoALL= Producto.objects.all()
     datos ={
         'listarproductos' :productoALL
     }
     return render(request, 'app/Administrador/listar_productos.html',datos)
-
+@login_required
 def carrito(request):
     carrito= Items_Carrito.objects.all()
     datos={ 'listar_carrito' :carrito }
 
     return render(request, 'app/Usuario/carrito.html', datos)
-
+@login_required
 def pago_recibido(request):
     carrito = Items_Carrito.objects.all()
     carrito.delete()

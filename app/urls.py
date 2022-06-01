@@ -4,7 +4,6 @@ from.views import *
 urlpatterns = [
     path('', index,name="index"),
     path('perfil/',perfil,name="profile"),
-    path('perfil_admin/',perfil_admin,name="profile_admin"),
     path('historial/', historial,name="history"),
     path('suscripcion/', suscripcion,name="suscribe"),
     path('seguimiento1/', seguimiento1,name="segui1"),

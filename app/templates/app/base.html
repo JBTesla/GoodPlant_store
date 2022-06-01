@@ -60,18 +60,31 @@
                         <li class="nav-item mt-1">
                           <a class="nav-link " href="{% url 'profile'%}"> <i class="fa fa-id-badge"></i> Perfil</a>
                         </li>
+                        {% if user.is_staff == 0 %}
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'history'%}"><i class="fa fa-clock-rotate-left"></i> Historial Compras</a>
                         </li>
+                        {% endif %}
+                        {% if user.is_staff == 0 %}
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'suscribe'%}"><i class="fa-brands fa-gratipay"></i> suscripcion</a>
                         </li>
+                        {% endif %}
+                        {% if perms.app.add_producto %}
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'add_products'%}"><i class="fa fa-circle-plus"></i> Agregar Productos</a>
                         </li>
+                        {% endif %}
+                        {% if perms.app.add_producto %}
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'list_products'%}"><i class="fa fa-file-pen"></i> Editar Productos</a>
                         </li>
+                        {% endif %}
+                        {% if user.is_staff == 1 %}
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="http://127.0.0.1:8000/admin/"><i class="fa fa-file-pen"></i> Pagina Admin</a>
+                        </li>
+                        {% endif %}
                         <li>
                           <hr>
                          </li>

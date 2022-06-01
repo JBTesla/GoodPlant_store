@@ -1,4 +1,4 @@
-{%extends 'app/baseAdmin.html'%}
+{%extends 'app/base.html'%}
 {% load static %}
 {% block contenido %}
 
@@ -33,7 +33,9 @@
             <td>{{ aux.update_at }}</td>
             <td>
                 <a href="{% url 'modify_products' aux.codigo %}" class="btn btn-primary">Modificar</a>
+                {% if perms.app.delete_producto %}
                 <a onclick="alertaBorrarProducto({{ aux.codigo }})" class="btn btn-danger">Eliminar</a> 
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

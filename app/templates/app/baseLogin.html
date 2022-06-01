@@ -43,50 +43,10 @@
         </div>
       </nav>
     <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-3">
-            </div>
-            <div class="col-sm-6 flex-column mt-3 text-center" style="color: black;">
-              <div>
-                <h1>! Bienvenido a nuestra tienda online ¡</h1>
-              </div>
-              <div id="demo" class="carousel slide mt-3 mb-3" data-ride="carousel">
+        {% block contenido %}
 
-                <!-- Indicators -->
-                <ul class="carousel-indicators">
-                  <li data-target="#demo" data-slide-to="0" class="active"></li>
-                  <li data-target="#demo" data-slide-to="1"></li>
-                  <li data-target="#demo" data-slide-to="2"></li>
-                </ul>
-              
-                <!-- The slideshow -->
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="{% static 'app/img/plantasPrueba.jpg'%}" alt="Macetas" width="500px" height="300px">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{% static 'app/img/inicio2.png'%}" alt="Jardin" width="500px" height="300px">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{% static 'app/img/jardineria-t.jpg'%}" alt="Plantas" width="500px" height="300px">
-                  </div>
-                </div>
-              
-                <!-- Left and right controls -->
-                <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                  <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next">
-                  <span class="carousel-control-next-icon"></span>
-                </a>
-              </div>
-              <div class="parrafo mt-3" style="color: black;">
-                <h5>Nuestra tienda se especializa en productos de jardineria en general con despacho a domicilio, registrate para ver nuestro catalogo</h5>
-              </div>
-            </div>
-            <div class="col-sm-3">
-            </div>
-        </div>
+
+        {% endblock %}
     </div>
     <!-- The Modal -->
 <div class="modal" id="ModalLogin">

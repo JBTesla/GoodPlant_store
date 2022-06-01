@@ -5,9 +5,8 @@
   <div class="col-sm-4 my-3 pt-3 shadow">
     <img src="{% static 'app/img/DefaultUser.png'%}" alt="" class="float-top rounded-circle mr-2" width="150px">
     <h6> Nombre usuario: {{ user.username }}</h6>
-    <h6>Tipo de usuario: Suscrito<h6>
-    <h6>Email: jbtesla@gmail.com</h6>
-    <h6>Numero: +5699988776</h6>
+    <h6>Tipo de usuario: {{ group.name }}<h6>
+    <h6>Email: {{ user.email }}</h6>
   </div>
   <div class="col-sm-4 my-3 pt-3 shadow">
     <img src="{% static 'app/img/mapaDespacho2.jpg'%}" alt="" class="float-top rounded-circle mr-2" width="200px">
@@ -16,6 +15,7 @@
   <h6>Comuna: Puente Alto</h6>
   <h6>Direccion: Calle ryuk #01122</h6>
   </div>
+  {% if user.is_staff == 0 %}
   <div class="col-sm-4 my-3 pt-3 shadow">
     <img src="{% static 'app/img/MetodoPago.png'%}" alt="" class="float-top rounded-circle mr-2" width="150px">
     <h6> Tarjeta Registrada</h6>
@@ -23,5 +23,6 @@
     <h6>Tipo de Tarjeta: VISA Debito</h6>
     <h6>Numero tarjeta: *************776</h6>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
