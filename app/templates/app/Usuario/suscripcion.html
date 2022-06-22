@@ -5,46 +5,77 @@
   <div class="col-sm-2">
   </div>
   <div class="col-sm-8">
+    <form action="" method="get">
+    </div>
+          <div class="form-group">
+              <label for="txtUser">Nombre Completo</label>
+              <input type="text" placeholder="Ingrese Nombre" class="form-control" name="txtName" id="txtName">
+          </div>
+          <div class="txtEmail">
+              <label for="txtEmail">Correo Electronico</label>
+              <input type="text" placeholder="Ingresa tu correo" class="form-control" name="txtEmail" id="txtEmail">
+          </div>
+          <div>
+            <label for="txtNumcon">Numero Contacto</label>
+            <input type="text" placeholder="Ingrese numero contacto" class="form-control" name="txtNumcon" id="txtNumcon">
+        </div>
+          <div class="tittlePlan mb-3 mt-3">
+            <h6>Planes de Suscripcion:</h6>
+        </div>
+          <div class="checkbox mb-3">
+            <label for="checkbox">Un mes por $4.000</label>
+            <input type="checkbox">
+        </div>
+        <div class="checkbox mb-3">
+          <label for="checkbox">6 meses por $20.000</label>
+          <input type="checkbox">
+      </div>
+        <div class="checkbox mb-3">
+          <label for="checkbox">1 año por $30.000</label>
+          <input type="checkbox">
+      </div>
+      <div class="payMethod mb-3 mt-3">
+        <h6>Metodos de pago:</h6>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Seleccione...
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Paypal</a>
+            <a class="dropdown-item" href="#">WebPay</a>
+            <a class="dropdown-item" href="#">Targeta Registrada</a>
+          </div>
+        </div>
+      </div>
+    </form>
+          <div style="text-align: center;">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="username" id="username" value="{{ user.username }}">
+              <input type="hidden" name="isSuscrito" id="isSuscrito" value="True">
+              <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar">
+            </form>
+              <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar">
+          </div>
     <table class="table table-bordered mt-3">
       <thead class="thead-dark">
+
         <tr>
-          <th>Tipo Suscripcion</th>
-          <th>Fecha inicio</th>
-          <th>Fecha termino</th>
-          <th>Estado</th>
-          <th>Monto cancelado</th>
+          <th>nombre</th>
+          <th>esta suscrito</th>
+          <th>eliminar suscripcion</th>
         </tr>
       </thead>
       <tbody>
+        {% for aux in listar_suscripcion %}
         <tr class="table-warning">
-          <td>Suscripcion 1 mes</td>
-          <td>21/02/2022</td>
-          <td>21/03/2022</td>
-          <td>En curso</td>
-          <td>$4.000</td>
-        </tr>
-        <tr class="table-success">
-          <td>Suscripcion 1 mes</td>
-          <td>21/01/2022</td>
-          <td>21/02/2022</td>
-          <td>Renovada</td>
-          <td>$4.000</td>
-        </tr>
-        <tr class="table-success">
-          <td>Suscripcion 1 mes</td>
-          <td>21/12/2021</td>
-          <td>21/01/2022</td>
-          <td>Renovada</td>
-          <td>$4.000</td>
+          <td>{{ aux.username }}</td>
+          <td>{{ aux.isSuscrito }}</td>
+          <td><a href="{% url 'eliminar_suscripcion' aux.username %}" class="btn btn-primary">Eliminar Suscripcion</a></td>
         </tr>
       </tbody>
     </table>
-    <div>
-      <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar" value="Renovar Suscripcion">
-      <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar" value="Cambiar Suscripcion">
-      <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar" value="Cancelar Suscripcion">
-  </div>
-
+    {% endfor %}
   </div>
   <div class="col-sm-2">
   </div>

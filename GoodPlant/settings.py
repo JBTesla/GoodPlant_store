@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'GoodPlant.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_api',
+        'NAME': 'db_api_3',
         'HOST': 'localhost',
         'PORT': '3306',
         'USER': 'root',

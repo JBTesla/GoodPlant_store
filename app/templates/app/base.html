@@ -31,6 +31,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'products'%}">Productos</a>
             </li>
+            {% if perms.app.add_producto %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'productosApi'%}">Productos Api</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'cart'%}">Carrito de compras</a>
             </li>
@@ -191,7 +196,12 @@
                         </div>
                       </div>
                           <div style="text-align: center;">
+                            <form action="" method="POST">
+                              {% csrf_token %}
+                              <input type="hidden" name="username" id="username" value="{{ user.username }}">
+                              <input type="hidden" name="isSuscrito" id="isSuscrito" value="True">
                               <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar">
+                            </form>
                               <input type="reset" class="btn btn-danger mt-3" name="btnLimpiar" id="btnLimpiar">
                           </div>
                       </form>

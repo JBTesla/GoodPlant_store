@@ -12,11 +12,6 @@ class historialAdmin(admin.ModelAdmin):
      search_fields=['codigo']
      list_per_page= 5
 
-class historialSubAdmin(admin.ModelAdmin):
-     list_display=['tipoSuscripcion','fechaInicio','fechaTermino','estado','monto']
-     search_fields=['tipoSuscripcion']
-     list_per_page= 5
-
 class despachoAdmin(admin.ModelAdmin):
      list_display=['codigo','nombre','marca','cantidad','fechaCompra','fechaEstimadaEntrega','precio','estadoDespacho']
      search_fields=['codigo']
@@ -27,7 +22,6 @@ class despachoAdmin(admin.ModelAdmin):
 admin.site.register(TipoProducto)
 admin.site.register(Producto, productosAdmin)
 admin.site.register(historialCompra,historialAdmin)
-admin.site.register(estadoSuscripcion)
-admin.site.register(historialSuscripcion,historialSubAdmin)
+admin.site.register(Suscripcion)
 admin.site.register(estadoDespacho)
 admin.site.register(despacho,despachoAdmin)

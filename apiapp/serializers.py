@@ -9,6 +9,9 @@ class TipoProductoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductoSerializer(serializers.ModelSerializer):
+    #nombre_tipo = serializers.CharField(read_only=True,source='tipo.tipo')
+    tipo = TipoProductoSerializer(read_only=True)
+
     class Meta:
         model = Producto
         fields = '__all__'

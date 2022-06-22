@@ -40,26 +40,6 @@ class historialCompra(models.Model):
     class Meta:
         db_table ='db_historial'
 
-class estadoSuscripcion(models.Model):
-    estadoSuscripcion = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.estadoSuscripcion
-    class Meta:
-        db_table ='db_estadoSus'
-
-class historialSuscripcion(models.Model):
-    tipoSuscripcion=models.CharField(max_length=20)
-    fechaInicio=models.DateField()
-    fechaTermino=models.DateField()
-    estado=models.ForeignKey(estadoSuscripcion, on_delete=models.CASCADE)
-    monto=models.CharField(max_length=20)
-    
-    def __str__(self):
-        return self.tipoSuscripcion
-    class Meta:
-        db_table ='db_suscripcion'
-
 class estadoDespacho(models.Model):
     estadoDespacho = models.CharField(max_length=20)
 
@@ -88,3 +68,10 @@ class Items_Carrito(models.Model):
 
     class Meta:
         db_table ='db_items_carrito'
+
+class Suscripcion(models.Model):
+    username=models.CharField(max_length=20,primary_key=True)
+    isSuscrito=models.BooleanField()
+
+    class Meta:
+        db_table ='db_Suscripcion'
