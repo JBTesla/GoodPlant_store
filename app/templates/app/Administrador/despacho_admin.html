@@ -1,0 +1,86 @@
+{%extends 'app/base.html'%}
+{% load static %}
+{% block contenido %}
+<div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+      <table class="table mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th>Comprador</th>
+            <th>Producto</th>
+            <th>Descripcion</th>
+            <th>valor</th>
+            <th>cantidad</th>
+            <th>Estado de pago</th>
+            <th>Cambiar Estado</th>
+            {% if axu.estado == "entregado"%}
+            <th>eliminar</th>
+            {% endif %}
+          </tr>
+        </thead>
+        {% for aux in despachoAll %}
+        <tbody>
+          <tr class="table-info">
+            <td>{{ aux.usuario }}</td> 
+            <td>{{ aux.producto.nombre }}</td>
+            <td>{{ aux.producto.descripcion }}</td>
+            <td>{{ aux.producto.precio }}</td>
+            <td>{{ aux.cantidad }}</td>
+            <td>{{ aux.estado }}</td>
+            <td>
+                <form action="# " method="POST" class="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{aux.codigo}}">
+                {% if aux.estado == "Pago recibido" %}
+                <select class="browser-default" name="selecciona" id="seleccion">  
+                    <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>
+                    <option value="preparacion">preparacion</option>
+                    <option value="reparto">reparto</option>
+                    <option value="entregado">entregado</option>
+                  </select>
+                  <input type="submit" class="btn btn-success  mt-3" value="Modificar">
+                {% endif %}
+                {% if aux.estado == "preparacion" %}
+                <select class="browser-default"  name="selecciona" id="seleccion">
+                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>
+                    <option value="reparto">reparto</option>
+                    <option value="entregado">entregado</option>
+                  </select>
+                  <input type="submit" class="btn btn-success  mt-3" value="Modificar">  
+                {% endif %}
+                {% if aux.estado == "reparto" %}
+                <select class="browser-default"  name="selecciona" id="seleccion">
+                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="preparacion">preparacion</option>
+                    <option value="{{aux.estado}}" selected>{{aux.estado}}</option>
+                    <option value="entregado">entregado</option>
+                  </select>
+                  <input type="submit" class="btn btn-success  mt-3" value="Modificar">
+                {% endif %}
+                {% if aux.estado == "entregado" %}
+                <select class="browser-default"  name="selecciona" id="seleccion">
+                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="preparacion">preparacion</option>
+                    <option value="reparto">reparto</option>
+                    <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>
+                  </select>
+                  <input type="submit" class="btn btn-success  mt-3" value="Modificar"> 
+                {% endif %}
+                </form>
+            </td>
+            {% if aux.estado == "entregado" %}
+            <td>
+            <a href="{% url 'eliminar_despacho' aux.codigo %}"></a>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

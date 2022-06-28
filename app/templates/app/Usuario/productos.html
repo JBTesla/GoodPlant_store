@@ -18,7 +18,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ aux.nombre }}</h5>
                   <h6 class="card-title">Codigo: {{ aux.codigo }}&nbsp;|&nbsp; Marca: {{ aux.marca }}</h6>
-                  <p class="card-text">Tipo: {{ aux.tipo }}</p>
+                  <p class="card-text">Tipo: {{ aux.tipo }}&nbsp;|&nbsp;</p>
                   <p class="card-text">descripcion: {{ aux.descripcion }}</p>
                   <p class="card-text">Precio: ${{ aux.precio }}&nbsp;|&nbsp; Stock: {{ aux.stock }}</p>
                   <div class="btn text-align">
@@ -32,7 +32,6 @@
                       <input type="hidden" name="imagen_producto" id="imagen_producto" value="{{ aux.imagen }}">
                       <input type="submit" style="cursor: pointer;" value="Agregar al carrito" class="btn btn-success btn-sm ml-auto">
                     </form>
-                  <a href="#" class="btn btn-primary mt-3">Aplicar Descuento</a>
                 </div>
                 </div>
               </div>

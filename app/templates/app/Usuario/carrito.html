@@ -1,49 +1,18 @@
 {%extends 'app/base2.html'%}
 {% load static %}
 {% block contenido %}
+{% if prod %}
+objeto :  {{prod.producto}}
+{% endif %}
+{% if usuario == 1 %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-2">
-      </div>
-      <div class="col-sm-8 flex-column mt-3 text-center">
-        <h2 style="color:black;">Carrito de compras</h2>
-        <p style="color: black;">Puedes revisar tur productos seleccionados antes de pagarlos aqui</p>            
-        <table class="table table-striped">
-          <thead class="thead-dark">
-              <tr>
-                  <th>Imagen</th>
-                  <th>Codigo</th>
-                  <th>Stock</th>
-                  <th>Nombre</th>
-                  <th>Marca</th>
-                  <th>Precio</th>
-                  <th>Descripcion</th>
-                  <th>Tipo</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for aux in listar_carrito %}
-              <tr>
-                  <td><img src="{{ aux.codigo.imagen.url }}" class="" style="width:100px;"></td>
-                  <td>{{ aux.codigo.codigo }}</td>
-                  <td>{{ aux.codigo.stock }}</td>
-                  <td>{{ aux.codigo.nombre }}</td>
-                  <td>{{ aux.codigo.marca }}</td>
-                  <td>${{ aux.codigo.precio }}</td>
-                  <td>{{ aux.codigo.descripcion }}</td>
-                  <td>{{ aux.codigo.tipo }}</td>
-                  <td>
-                  </td>
-              </tr>
-              {% endfor %}
-          </tbody>
-      </table>
-      <div class="card" style="width:300px">
+      <div class="card" style="width:350px">
         <div class="card-body">
           <h4 class="card-title">Total de la compra</h4>
-          <p class="card-text">Total Neto: $34.000</p>
-          <p class="card-text">Descuento: $1.500</p>
-          <p class="card-text">Total a pagar: $32.300</p>
+          <p class="card-text">Descuento:{{ descuento }} </p>
+          <p class="card-text">Total a pagar:{{ totalsub }}</p>
           <div class="payMethod mb-3 mt-3">
             <h6>Metodos de pago:</h6>
             <div class="dropdown">
@@ -57,15 +26,126 @@
               </div>
             </div>
           </div>
-          <a href="{% url 'sucess'%}" class="btn btn-primary">Ir a pagar</a>
-          <a href="{% url 'delete_item'%}" class="btn btn-danger">limpiar Carrito</a>
-
+       	    <form action="" method="POST" class="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
+          </form>
+          <p></p>
+          <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
         </div>
       </div>
+      </div>
+      <div class="col-sm-8 flex-column mt-3 text-center">
+        {% for aux in listar_carrito %}    
+        <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
+          <div class="row no-gutters">
+            <div class="col-sm-4">
+              <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
+            </div>
+            <div class="col-sm-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
+                <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
+                <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
+                <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+              </div>
+            </div>
+          </div>
+        </div>           
+          {% endfor %}
         </div>
     </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2">
       </div>
     </div>
 </div>
+{% elif usuario == 0 %}
+<div class="container-fluid  text-center">
+  <h2 style="color:black;">Carrito de compras</h2>
+  <p style="color: black;">Puedes revisar tur productos seleccionados antes de pagarlos aqui</p>
+  <div class="row">
+    <div class="col-sm-2 flex-column mt-5 text-center">
+      <div class="card" style="width:350px">
+        <div class="card-body">
+          <h4 class="card-title">Total de la compra</h4>
+          <p class="card-text">{{ no_sus }}</p>
+          <p class="card-text">Total a pagar: ${{ total }}</p>
+          <div class="payMethod mb-3 mt-3">
+            <h6>Metodos de pago:</h6>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Seleccione...
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Paypal</a>
+                <a class="dropdown-item" href="#">WebPay</a>
+                <a class="dropdown-item" href="#">Targeta Registrada</a>
+              </div>
+            </div>
+          </div>
+             <form action="" method="POST" class="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
+            </form>
+            <p></p>
+          <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
+        </div>
+    </div>
+      </div>
+      <div class="col-sm-8 flex-column mt-3 text-center">
+        {% for aux in listar_carrito %}        
+        <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Nombre: {{ aux.producto.nombre }}&nbsp;|&nbsp;Tipo: {{ aux.producto.tipo }}</h5>
+                <p class="card-text">Codigo: {{ aux.producto.codigo }}&nbsp;|&nbsp;Stock: {{ aux.producto.stock }} </p>
+                <p class="card-text">Marca: {{ aux.producto.marca }}&nbsp;|&nbsp;Cantidad: {{ aux.cantidad}} </p>
+                <p class="card-text">Precio: ${{ aux.producto.precio }}&nbsp;|&nbsp;Descripcion: {{ aux.producto.descripcion }} </p>
+                <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+      <div class="col-sm-2">
+      </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block css %}
+
+{% if mensaje == "pagado" %}
+    <script>
+        Swal.fire({
+        icon: 'warning',
+        title: 'Tu pago esta siendo comprobado',
+        text: 'Un momento por facor!',
+        
+       
+        confirmButtonText: "Continuar",
+        confirmButtonColor: '#3085d6',
+        
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Aprobado!',
+            'Tu pago a sido recibido!',
+            'success'
+          ).then(function() {
+            window.location.href = "/historial/"+ {{usr}};
+          })
+        }
+      })
+    </script>
+    {% endif %}
 {% endblock %}

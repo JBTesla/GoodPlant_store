@@ -1,0 +1,106 @@
+{%extends 'app/base.html'%}
+{% load static %}
+{% block contenido %}
+
+{% if producto %}
+<div class="row">
+  <div class="col-sm-2">
+  </div>
+  <div class="col-sm-6">
+    <p></p>
+
+    <div class="card bg-primary text-white">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body text-center ">
+            <h5 class="card-title">Estado: {{estado}}</h5>
+            <div class="row">
+              <div class="col-sm-4  d-flex justify-content-center">
+                <i class="fa-solid fa-box-open fa-4x mt-5"></i>
+              </div>
+              <div class="col-sm-4  d-flex justify-content-center">
+                <i class="fa-solid fa-truck fa-4x mt-5"></i>
+              </div>
+              <div class="col-sm-4  d-flex justify-content-center">
+                <i class="fa-solid fa-house-user fa-4x mt-5"></i>
+              </div>
+            </div>
+            {% if estado == "Pago recibido" %}
+            <div class="row">
+            <div class="col-sm-4">Preparacion</div>
+            <div class="col-sm-4">Despacho</div>
+            <div class="col-sm-4">Entregado</div>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 5%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            {% endif %}
+            {% if estado == "preparacion" %}
+            <div class="row">
+              <div class="col-sm-4">Preparacion</div>
+              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Entregado</div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            {% endif %}
+            {% if estado == "reparto" %}
+            <div class="row">
+              <div class="col-sm-4">Preparacion</div>
+              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Entregado</div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            {% endif %}
+            {% if estado == "entregado" %}
+            <div class="row">
+              <div class="col-sm-4">Preparacion</div>
+              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Entregado</div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <p></p>
+    <div class="card bg-success text-white">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Orden 1111</h5>
+            <div class="row">
+              <div class="col-sm-2"><img  src="{{ producto.imagen }}" style="width: 100px;"></div>
+              <div class="col-sm-2"></div>
+              <div class="col-sm-5">
+                <p class="card-text">
+                  {{producto.nombre}}
+                </p>
+                <p class="text">
+                    {{producto.cantidad}} cantidad/es
+                </p>
+              </div>
+            </div>
+            <p class="text"> Total: ${{producto.precio}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p></p>
+</div>
+
+  <div class="col-sm-2">
+  </div>
+</div>
+{% endif %}
+{% endblock %}

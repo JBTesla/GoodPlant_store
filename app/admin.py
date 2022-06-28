@@ -7,13 +7,10 @@ class productosAdmin(admin.ModelAdmin):
      search_fields=['codigo']
      list_per_page= 5
 
-class historialAdmin(admin.ModelAdmin):
-     list_display=['codigo','nombre','marca','cantidad','fechaCompra','precio','tipo']
-     search_fields=['codigo']
-     list_per_page= 5
+
 
 class despachoAdmin(admin.ModelAdmin):
-     list_display=['codigo','nombre','marca','cantidad','fechaCompra','fechaEstimadaEntrega','precio','estadoDespacho']
+     list_display=['codigo','cantidad','fecha_compra','producto','usuario','estado']
      search_fields=['codigo']
      list_per_page= 5
 
@@ -21,7 +18,5 @@ class despachoAdmin(admin.ModelAdmin):
 
 admin.site.register(TipoProducto)
 admin.site.register(Producto, productosAdmin)
-admin.site.register(historialCompra,historialAdmin)
 admin.site.register(Suscripcion)
-admin.site.register(estadoDespacho)
-admin.site.register(despacho,despachoAdmin)
+admin.site.register(Despacho,despachoAdmin)

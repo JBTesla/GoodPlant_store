@@ -23,3 +23,9 @@ class FormularioUserResgistro(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email','password1','password2']
+
+class suscripcionForm(ModelForm):
+
+  class Meta:
+      model = Suscripcion
+      fields =['username','is_suscrito']
