@@ -1,0 +1,46 @@
+{%extends 'app/base2.html'%}
+{% load static %}
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8 flex-column mt-3">
+            <div class="row">
+            {% for aux in listaJson %}
+            <div class="col-sm-4 mt-3 mb-3">
+            <div class="card" style="width:280px">
+                {% if aux.imagen %}
+                <img src="{{ aux.imagen }}" class="card-img-top">
+                {% else %}
+                <img class="card-img-top" src="{% static 'app/img/TierraHojas.jpg'%}" alt="Card image">
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{ aux.nombre }}</h5>
+                <h6 class="card-title">rut: {{ aux.rut }}&nbsp;|&nbsp; Correo: {{ aux.correo }}</h6>
+                <p class="card-text">Numero: {{ aux.numero }}</p>
+                <p class="card-text">Tipo: {{ aux.tipo.tipo }}</p>
+                <div class="btn text-align">
+                    <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{ aux.rut }}">
+                    <input type="hidden" name="nombre_producto" id="nombre_producto" value="{{ aux.nombre }}">
+                    <input type="hidden" name="precio_producto" id="precio_producto" value="{{ aux.correo }}">
+                    <input type="hidden" name="marca_producto" id="marca_producto" value="{{ aux.numero }}">
+                    <input type="hidden" name="stock_producto" id="stock_producto" value="{{ aux.tipo.tipo }}">
+                    <input type="hidden" name="imagen_producto" id="imagen_producto" value="{{ aux.imagen }}">
+                    <input type="submit" style="cursor: pointer;" value="Agregar" class="btn btn-success btn-sm ml-auto">
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="col-sm-2">
+</div>
+</div>
+</div>
+{% endblock %}

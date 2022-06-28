@@ -36,6 +36,11 @@
               <a class="nav-link" href="{% url 'productosApi'%}">Productos Api</a>
             </li>
             {% endif %}
+            {% if perms.app.add_usuario %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'usuario_api'%}">Usuario Api</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'cart' user.id %}">Carrito de compras</a>
             </li>
@@ -93,6 +98,16 @@
                         {% if user.is_staff == 1 %}
                         <li class="nav-item mt-1">
                           <a class="nav-link" href="{% url 'despacho_admin' %}"><i class="fa fa-truck"></i> Administrar Despacho</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_staff == 1 %}
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'agregar_usuario' %}"><i class="fa fa-user-pen"></i>Agregar usuario</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_staff == 1 %}
+                        <li class="nav-item mt-1">
+                          <a class="nav-link" href="{% url 'listar_usuario' %}"><i class="fa fa-user-check"></i>Editar usuario</a>
                         </li>
                         {% endif %}
                         <li>
@@ -165,7 +180,7 @@
            var instances = M.Sidenav.init(elems);
          });
        </script>
-       {% block css %}
+       {% block sweetalert %}
        {% endblock %}
 </body>
 </html>

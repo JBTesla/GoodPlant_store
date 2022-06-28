@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 <div class="row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 mb-5">
         <form action="" method="POST">
             {% csrf_token %}
             {{ form | crispy }}
@@ -13,6 +13,12 @@
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
         </form>
         </div>
+    <div class="col-sm-2"></div>
+</div>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 mt-5">
+    </div>
     <div class="col-sm-2"></div>
 </div>
 {% endblock %}

@@ -121,17 +121,14 @@ objeto :  {{prod.producto}}
   </div>
 {% endif %}
 {% endblock %}
-
-{% block css %}
-
-{% if mensaje == "pagado" %}
+{% block sweetalert %}
+{% if mensaje == "pago verificado" %}
     <script>
         Swal.fire({
         icon: 'warning',
         title: 'Tu pago esta siendo comprobado',
-        text: 'Un momento por facor!',
+        text: 'Un momento por favor!',
         
-       
         confirmButtonText: "Continuar",
         confirmButtonColor: '#3085d6',
         
@@ -142,7 +139,7 @@ objeto :  {{prod.producto}}
             'Tu pago a sido recibido!',
             'success'
           ).then(function() {
-            window.location.href = "/historial/"+ {{usr}};
+            window.location.href = "/pago_recibido/";
           })
         }
       })

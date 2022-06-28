@@ -1,14 +1,12 @@
 {%extends 'app/base.html'%}
 {% load static %}
 {% block contenido %}
-
 {% if producto %}
 <div class="row">
   <div class="col-sm-2">
   </div>
   <div class="col-sm-6">
     <p></p>
-
     <div class="card bg-primary text-white">
       <div class="row">
         <div class="col-md-2">
@@ -18,19 +16,19 @@
             <h5 class="card-title">Estado: {{estado}}</h5>
             <div class="row">
               <div class="col-sm-4  d-flex justify-content-center">
-                <i class="fa-solid fa-box-open fa-4x mt-5"></i>
+                <i class="fa-solid fa-cart-arrow-down fa-4x mt-5"></i>
               </div>
               <div class="col-sm-4  d-flex justify-content-center">
-                <i class="fa-solid fa-truck fa-4x mt-5"></i>
+                <i class="fa-solid fa-truck-fast fa-4x mt-5"></i>
               </div>
               <div class="col-sm-4  d-flex justify-content-center">
-                <i class="fa-solid fa-house-user fa-4x mt-5"></i>
+                <i class="fa-solid fa-house-circle-check fa-4x mt-5"></i>
               </div>
             </div>
-            {% if estado == "Pago recibido" %}
+            {% if estado == "pago verificado" %}
             <div class="row">
             <div class="col-sm-4">Preparacion</div>
-            <div class="col-sm-4">Despacho</div>
+            <div class="col-sm-4">Reparto</div>
             <div class="col-sm-4">Entregado</div>
             </div>
             <div class="progress">
@@ -40,7 +38,7 @@
             {% if estado == "preparacion" %}
             <div class="row">
               <div class="col-sm-4">Preparacion</div>
-              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Reparto</div>
               <div class="col-sm-4">Entregado</div>
               </div>
               <div class="progress">
@@ -50,7 +48,7 @@
             {% if estado == "reparto" %}
             <div class="row">
               <div class="col-sm-4">Preparacion</div>
-              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Reparto</div>
               <div class="col-sm-4">Entregado</div>
               </div>
               <div class="progress">
@@ -60,7 +58,7 @@
             {% if estado == "entregado" %}
             <div class="row">
               <div class="col-sm-4">Preparacion</div>
-              <div class="col-sm-4">Despacho</div>
+              <div class="col-sm-4">Reparto</div>
               <div class="col-sm-4">Entregado</div>
               </div>
               <div class="progress">
@@ -78,27 +76,26 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Orden 1111</h5>
+            <h5 class="card-title">Orden despacho: 1111</h5>
             <div class="row">
               <div class="col-sm-2"><img  src="{{ producto.imagen }}" style="width: 100px;"></div>
               <div class="col-sm-2"></div>
               <div class="col-sm-5">
                 <p class="card-text">
-                  {{producto.nombre}}
+                 Producto: {{producto.nombre}}
                 </p>
                 <p class="text">
-                    {{producto.cantidad}} cantidad/es
+                    cantidad/es: {{producto.cantidad}} 
                 </p>
+                <p class="text"> Total: ${{producto.precio}}</p>
               </div>
             </div>
-            <p class="text"> Total: ${{producto.precio}}</p>
           </div>
         </div>
       </div>
     </div>
     <p></p>
 </div>
-
   <div class="col-sm-2">
   </div>
 </div>

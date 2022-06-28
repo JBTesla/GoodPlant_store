@@ -17,6 +17,51 @@ def index(request):
 def perfil(request):
     return render(request, 'app/Usuario/perfilUsuario.html')
 @login_required
+@permission_required('app.add_usuario')
+def agregar_usuario(request):
+    datos={
+        'form' : usuarioForm()
+    }
+    if request.method == 'POST':
+        formulario= usuarioForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request,'Usuario guardado correctamente!')
+    return render(request, 'app/Administrador/agregar_usuarios.html',datos)
+@login_required
+@permission_required('app.add_usuario')
+def listar_usuario(request):
+    usuarioALL= Usuario.objects.all()
+    datos ={'lista_usuario' :usuarioALL,
+            } 
+    return render(request, 'app/Administrador/listar_usuarios.html',datos)
+@login_required
+@permission_required('app.add_usuario')
+def modificar_usuario(request, rut):
+    usuario = Usuario.objects.get(rut=rut)
+    datos={
+        'form' : usuarioForm(instance=usuario)
+    }
+    if request.method == 'POST':
+        formulario= usuarioForm(request.POST, files=request.FILES,instance=usuario)
+        if formulario.is_valid():
+            formulario.save()
+            datos['mensaje'] = 'Usuario modificado correctamente'
+            datos['form'] = formulario
+    return render(request,'app/Administrador/modificar_usuarios.html')
+@login_required
+@permission_required('app.add_usuario')
+def eliminar_usuario(request, rut):
+    usuario = Usuario.objects.get(rut=rut)
+    usuario.delete()
+
+    redirect(to='listar_usuario')
+@login_required
+def usuario_api(request):
+    response = requests.get('http://127.0.0.1:8000/api/usuario/').json()
+    datos = {'listaJson' : response}
+    return render(request,'app/Administrador/usuario_api.html',datos)
+@login_required
 def historial(request, id):
     historial_compra= Despacho.objects.filter(usuario=id)
     datos={'lista_historial':historial_compra}
@@ -76,7 +121,7 @@ def seguimiento_despacho(request):
 
 
     return render(request, 'app/Usuario//seguimiento_despacho.html', datos)
-
+@login_required
 def despacho_admin(request):
 
     if request.method == 'POST':
@@ -90,7 +135,7 @@ def despacho_admin(request):
             'usuario':0
     }
     return render(request, 'app/Administrador/despacho_admin.html', datos)
-
+@login_required
 def eliminar_despacho(request, codigo):
     despacho = Despacho.objects.get(codigo=codigo)
     despacho.delete()
@@ -211,7 +256,6 @@ def carrito(request, id):
 
     datos={ 'listar_carrito' :carrito,
             'usuario': 0,
-            'usr': id
     }
     lista = carrito
     datos['total']=0
@@ -235,11 +279,11 @@ def carrito(request, id):
             despacho.cantidad = n.cantidad
             despacho.producto = n.producto
             despacho.usuario = n.user
-            despacho.estado = "Pago recibido"
+            despacho.estado = "pago verificado"
             despacho.save()
 
         carrito.delete()
-        datos['mensaje'] = 'pagado'
+        datos['mensaje'] = 'pago verificado'
         messages.success(request,'Pago realizado con exito')
 
     return render(request, 'app/Usuario/carrito.html', datos)

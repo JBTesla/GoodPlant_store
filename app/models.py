@@ -29,6 +29,28 @@ class Producto(models.Model):
     
     class Meta:
         db_table ='db_producto'
+class TipoUsuario(models.Model):
+    tipo= models.CharField(max_length=20)
+    def __str__(self):
+        return self.tipo
+    
+    class Meta:
+        db_table ='db_tipo_usuario'
+
+class Usuario(models.Model):
+    rut=models.IntegerField(null=False,primary_key=True)
+    nombre=models.CharField(max_length=20)
+    correo=models.CharField(max_length=20)
+    numero=models.CharField(max_length=20)
+    tipo=models.ForeignKey(TipoUsuario, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="usuarios", null=True)
+    create_at = models.DateField(auto_now_add=True)
+    update_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.rut
+    class Meta:
+        db_table ='db_usuario'
 
 class Despacho(models.Model):
     codigo = models.AutoField(null=False,primary_key=True)

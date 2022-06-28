@@ -33,7 +33,7 @@
                 <form action="# " method="POST" class="" enctype="multipart/form-data">
                     {% csrf_token %}
                 <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{aux.codigo}}">
-                {% if aux.estado == "Pago recibido" %}
+                {% if aux.estado == "pago verificado" %}
                 <select class="browser-default" name="selecciona" id="seleccion">  
                     <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>
                     <option value="preparacion">preparacion</option>
@@ -44,7 +44,7 @@
                 {% endif %}
                 {% if aux.estado == "preparacion" %}
                 <select class="browser-default"  name="selecciona" id="seleccion">
-                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="pago verificado">pago verificado</option>
                     <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>
                     <option value="reparto">reparto</option>
                     <option value="entregado">entregado</option>
@@ -53,7 +53,7 @@
                 {% endif %}
                 {% if aux.estado == "reparto" %}
                 <select class="browser-default"  name="selecciona" id="seleccion">
-                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="pago verificado">pago verificado</option>
                     <option value="preparacion">preparacion</option>
                     <option value="{{aux.estado}}" selected>{{aux.estado}}</option>
                     <option value="entregado">entregado</option>
@@ -62,7 +62,7 @@
                 {% endif %}
                 {% if aux.estado == "entregado" %}
                 <select class="browser-default"  name="selecciona" id="seleccion">
-                    <option value="Pago recibido">Pago recibido</option>
+                    <option value="pago verificado">pago verificado</option>
                     <option value="preparacion">preparacion</option>
                     <option value="reparto">reparto</option>
                     <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>

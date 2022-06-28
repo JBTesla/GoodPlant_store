@@ -1,3 +1,4 @@
+from dataclasses import field
 from django import forms
 from django.forms import ModelForm
 from.models import *
@@ -17,6 +18,10 @@ class productoForm(ModelForm):
         #]widgets = {
           #      'fecha_ingreso' : forms.SelectDateWidget(years=range(2020,2023))
         #}
+class usuarioForm(ModelForm):
+    class Meta:
+      model=Usuario
+      fields=['rut','nombre','correo','numero','tipo','imagen']
 
 class FormularioUserResgistro(UserCreationForm):
 
