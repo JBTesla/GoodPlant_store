@@ -8,25 +8,21 @@
     <table class="table mt-3">
       <thead class="thead-dark">
         <tr>
-          <th>Producto</th>
+          <th>ID compra</th>
           <th>Fecha de compra</th>
           <th>Monto</th>
-          <th>Cantidad</th>
           <th>Estado</th>
-          <th>imagen</th>
           <th>Despacho</th>
         </tr>
       </thead>
       <tbody>
         {% for aux in lista_historial %}
         <tr class="table-warning">
-          <td>{{ aux.producto.nombre }}</td>
+          <td>{{ aux.id }}</td>
           <td>{{ aux.fecha_compra }}</td>
-          <td>{{ aux.producto.precio }}</td>
-          <td>{{ aux.cantidad }}</td>
+          <td>${{ aux.total_compra }}</td>
           <td>{{ aux.estado }}</td>
-          <td><img src="{{ aux.producto.imagen.url }}" class="" style="width:100px;"></td>
-          <td><form action="{% url 'seguimiento_despacho' %}" method="POST" class="" enctype="multipart/form-data">
+          <td><form action="{% url 'seguimiento_despacho' aux.id %}" method="POST" class="" enctype="multipart/form-data">
               {% csrf_token %}
               <input type="hidden" name="nombre_producto" id="nombre_producto" value="{{aux.producto.nombre}}">
               <input type="hidden" name="precio_producto" id="precio_producto" value="{{ aux.producto.precio }}">

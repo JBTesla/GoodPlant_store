@@ -41,6 +41,11 @@
               <a class="nav-link" href="{% url 'usuario_api'%}">Usuario Api</a>
             </li>
             {% endif %}
+            {% if perms.app.add_usuario %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'apiCustom'%}">Api custom</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'cart' user.id %}">Carrito de compras</a>
             </li>

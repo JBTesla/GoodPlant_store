@@ -9,8 +9,13 @@ class productosAdmin(admin.ModelAdmin):
 
 
 class despachoAdmin(admin.ModelAdmin):
-     list_display=['codigo','cantidad','fecha_compra','producto','usuario','estado']
-     search_fields=['codigo']
+     list_display=['usuario','total_compra','estado','fecha_compra']
+     search_fields=['usuario']
+     list_per_page= 5
+
+class itemsDesAdmin(admin.ModelAdmin):
+     list_display=['producto','cantidad','id_user','id_pago']
+     search_fields=['id_user']
      list_per_page= 5
 
 class usuarioAdmin(admin.ModelAdmin):
@@ -35,3 +40,4 @@ admin.site.register(Usuario,usuarioAdmin)
 admin.site.register(Items_Carrito,carritoAdmin)
 admin.site.register(Suscripcion,suscripcioAdmin)
 admin.site.register(Despacho,despachoAdmin)
+admin.site.register(Items_Despacho,itemsDesAdmin)

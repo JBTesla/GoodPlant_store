@@ -53,22 +53,31 @@ class Usuario(models.Model):
         db_table ='db_usuario'
 
 class Despacho(models.Model):
-    codigo = models.AutoField(null=False,primary_key=True)
-    cantidad = models.IntegerField()
-    fecha_compra = models.DateField(auto_now_add=True)
-    producto = models.ForeignKey(Producto, on_delete= models.CASCADE)
     usuario = models.IntegerField()
+    total_compra = models.IntegerField()
     estado = models.CharField(max_length=50)
+    fecha_compra = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.codigo
+        return self.usuario
         
     class Meta:
-        db_table = 'db_despacho'    
+        db_table = 'db_despacho'
+
+class Items_Despacho(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(null=True)
+    id_user = models.IntegerField()
+    id_pago = models.IntegerField()
+
+    def __str__(self):
+        return self.id_user
+        
+    class Meta:
+        db_table ='db_items_despacho'
 
 
 class Items_Carrito(models.Model):
-    id = models.AutoField(primary_key=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField(null=True)
     user = models.IntegerField()

@@ -9,10 +9,8 @@
         <thead class="thead-dark">
           <tr>
             <th>Comprador</th>
-            <th>Producto</th>
-            <th>Descripcion</th>
-            <th>valor</th>
-            <th>cantidad</th>
+            <th>Fecha de compra</th>
+            <th>Total</th>
             <th>Estado de pago</th>
             <th>Cambiar Estado</th>
             {% if axu.estado == "entregado"%}
@@ -24,15 +22,13 @@
         <tbody>
           <tr class="table-info">
             <td>{{ aux.usuario }}</td> 
-            <td>{{ aux.producto.nombre }}</td>
-            <td>{{ aux.producto.descripcion }}</td>
-            <td>{{ aux.producto.precio }}</td>
-            <td>{{ aux.cantidad }}</td>
+            <td>{{ aux.fecha_compra }}</td>
+            <td>{{ aux.total_compra }}</td>
             <td>{{ aux.estado }}</td>
             <td>
                 <form action="# " method="POST" class="" enctype="multipart/form-data">
                     {% csrf_token %}
-                <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{aux.codigo}}">
+                <input type="hidden" name="id" id="id" value="{{aux.id}}">
                 {% if aux.estado == "pago verificado" %}
                 <select class="browser-default" name="selecciona" id="seleccion">  
                     <option value="{{ aux.estado }}" selected>{{aux.estado}}</option>

@@ -1,9 +1,7 @@
 {%extends 'app/base2.html'%}
 {% load static %}
 {% block contenido %}
-{% if prod %}
-objeto :  {{prod.producto}}
-{% endif %}
+
 {% if usuario == 1 %}
 <div class="container-fluid">
   <div class="row">
@@ -36,24 +34,33 @@ objeto :  {{prod.producto}}
       </div>
       </div>
       <div class="col-sm-8 flex-column mt-3 text-center">
-        {% for aux in listar_carrito %}    
-        <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
-          <div class="row no-gutters">
-            <div class="col-sm-4">
-              <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
-            </div>
-            <div class="col-sm-8">
-              <div class="card-body">
-                <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
-                <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
-                <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
-                <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+        {% for aux in listar_carrito %}
+        <table class="table mt-3">
+          <thead class="thead-dark">
+          </thead>
+          <tbody>
+            <tr class="table-warning">
+              <td>
+              <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
+              <div class="row no-gutters">
+                <div class="col-sm-4">
+                  <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
+                </div>
+                <div class="col-sm-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
+                    <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
+                    <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
+                    <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>           
+            </div> 
+          </td>
+          </tbody>
+        </table>
           {% endfor %}
         </div>
     </div>
@@ -96,22 +103,32 @@ objeto :  {{prod.producto}}
       </div>
       <div class="col-sm-8 flex-column mt-3 text-center">
         {% for aux in listar_carrito %}        
-        <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Nombre: {{ aux.producto.nombre }}&nbsp;|&nbsp;Tipo: {{ aux.producto.tipo }}</h5>
-                <p class="card-text">Codigo: {{ aux.producto.codigo }}&nbsp;|&nbsp;Stock: {{ aux.producto.stock }} </p>
-                <p class="card-text">Marca: {{ aux.producto.marca }}&nbsp;|&nbsp;Cantidad: {{ aux.cantidad}} </p>
-                <p class="card-text">Precio: ${{ aux.producto.precio }}&nbsp;|&nbsp;Descripcion: {{ aux.producto.descripcion }} </p>
-                <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+        <table class="table mt-3">
+          <thead class="thead-dark">
+          </thead>
+          <tbody>
+            <tr class="table-warning">
+              <td>
+              <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
+              <div class="row no-gutters">
+                <div class="col-sm-4">
+                  <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
+                </div>
+                <div class="col-sm-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
+                    <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
+                    <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
+                    <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </div> 
+            </td>
+          </tbody>
+        </table>
           {% endfor %}
       </div>
       <div class="col-sm-2">

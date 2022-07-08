@@ -2,7 +2,9 @@ from genericpath import exists
 from math import prod
 from urllib import response
 import requests #NOS PERMITE LEER EL API
-from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render,redirect
@@ -11,6 +13,14 @@ from .forms import *
 from .models import *
 
 # Create your views here.
+@receiver(post_save, sender=User) 
+def create_user_profile(sender, instance, created, **kwargs):     
+    if created:
+       instance.groups.add(Group.objects.get(name='Cliente'))
+
+def must_be_supervisor(user):
+   return user.groups.filter(name='Admin').count()
+    
 def index(request):
     return render(request, 'app/index.html')
 @login_required
@@ -64,7 +74,10 @@ def usuario_api(request):
 @login_required
 def historial(request, id):
     historial_compra= Despacho.objects.filter(usuario=id)
-    datos={'lista_historial':historial_compra}
+    productos_compra=Items_Despacho.objects.filter(id_user = id)
+    datos={'lista_historial':historial_compra,
+            'lista_productos':productos_compra}
+
     return render(request, 'app/Usuario/historialCompras.html',datos)
 
 @login_required
@@ -101,31 +114,19 @@ def eliminar_suscripcion(request, username):
 
     return redirect(to="suscribe")
 @login_required
-def seguimiento_despacho(request):
+def seguimiento_despacho(request, id):
     
-    datos={ }
-
-    if request.method == 'POST':
-
-        producto = Producto()
-        producto.nombre = request.POST.get('nombre_producto')
-        producto.precio = request.POST.get('precio_producto')
-        producto.descripcion = request.POST.get('codigo_producto')
-        producto.cantidad = request.POST.get('cantidad_producto')
-        estado = request.POST.get('estado_producto')
-        producto.imagen = request.POST.get('imagen_producto')
-        print(producto)
-        datos['producto']= producto
-        datos['estado'] = estado
-
-
+    historial_compra= Despacho.objects.filter(id=id)
+    productos_compra=Items_Despacho.objects.filter(id_pago = id)
+    datos={'lista_historial':historial_compra,
+            'lista_productos':productos_compra}
 
     return render(request, 'app/Usuario//seguimiento_despacho.html', datos)
 @login_required
 def despacho_admin(request):
 
     if request.method == 'POST':
-        despacho= Despacho.objects.get(codigo=request.POST.get('codigo_producto'))
+        despacho= Despacho.objects.get(id=request.POST.get('id'))
         despacho.estado = request.POST.get('selecciona')
         despacho.save()
 
@@ -261,6 +262,7 @@ def carrito(request, id):
     datos['total']=0
 
     usuario = request.user.username
+    usuario_id = request.user.id
     if Suscripcion.objects.filter(username=usuario).exists():
         datos['usuario'] = 1
         for cart in lista:
@@ -271,17 +273,24 @@ def carrito(request, id):
         for cart in lista:
             datos['total']= cart.producto.precio * cart.cantidad + datos['total']
             datos['no_sus']="Debes estar suscrito"
+  
     if request.method == 'POST':
-        for n in carrito:
-            despacho = Despacho()
+        compra= Despacho()
+        compra.usuario = usuario_id
+        compra.total_compra= datos['total']
+        compra.estado ="pago verificado"
+        compra.save()
+        compraid=compra.id
 
-            despacho.codigo = n.id
+        for n in carrito:
+            despacho = Items_Despacho()
+
             despacho.cantidad = n.cantidad
             despacho.producto = n.producto
-            despacho.usuario = n.user
-            despacho.estado = "pago verificado"
+            despacho.id_user = n.user
+            despacho.id_pago = compraid
             despacho.save()
-
+        
         carrito.delete()
         datos['mensaje'] = 'pago verificado'
         messages.success(request,'Pago realizado con exito')
