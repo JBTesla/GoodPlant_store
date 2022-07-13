@@ -7,23 +7,23 @@
       </div>
       <div class="col-sm-8 flex-column mt-3">
           <div class="row">
-          {% for aux in listaJsonDm %}
+          {% for aux in listaJsonLs %}
             <div class="col-sm-4 mt-3 mb-3">
               <div class="card" style="width:280px">
-                {% if aux.img %}
-                  <img src="{{ aux.img }}" class="card-img-top" alt="Card image">
+                {% if aux.image %}
+                  <img src="{{ aux.image }}" class="card-img-top" alt="Card image">
                 {% else %}
                   <img class="card-img-top" src="{% static 'app/img/TierraHojas.jpg'%}" alt="Card image">
                 {% endif %}
                 <div class="card-body">
-                  <h5 class="card-title">{{ aux.name }}</h5>
-                  <h6 class="card-title">Nivel: {{ aux.level }}</h6>
+                  <h5 class="card-title">{{ aux.character }}</h5>
+                  <h6 class="card-title">Frase : {{ aux.quote }}</h6>
                   <div class="btn text-align">
                     <form action="" method="POST">
                       {% csrf_token %}
-                      <input type="hidden" name="name" id="name" value="{{ aux.name }}">
-                      <input type="hidden" name="level" id="level" value="{{ aux.level }}">
-                      <input type="hidden" name="img" id="img" value="{{ aux.img }}">
+                      <input type="hidden" name="name" id="name" value="{{ aux.character }}">
+                      <input type="hidden" name="level" id="level" value="{{ aux.quote}}">
+                      <input type="hidden" name="img" id="img" value="{{ aux.image }}">
                       <input type="submit" style="cursor: pointer;" value="Agregar a Favoritos" class="btn btn-success btn-sm ml-auto">
                     </form>
                 </div>

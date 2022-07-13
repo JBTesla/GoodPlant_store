@@ -20,10 +20,10 @@
         </thead>
         {% for aux in despachoAll %}
         <tbody>
-          <tr class="table-info">
+          <tr class="table-success">
             <td>{{ aux.usuario }}</td> 
             <td>{{ aux.fecha_compra }}</td>
-            <td>{{ aux.total_compra }}</td>
+            <td>${{ aux.total_compra }}</td>
             <td>{{ aux.estado }}</td>
             <td>
                 <form action="# " method="POST" class="" enctype="multipart/form-data">

@@ -6,41 +6,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-2">
-      <div class="card" style="width:350px">
-        <div class="card-body">
-          <h4 class="card-title">Total de la compra</h4>
-          <p class="card-text">Descuento:{{ descuento }} </p>
-          <p class="card-text">Total a pagar:{{ totalsub }}</p>
-          <div class="payMethod mb-3 mt-3">
-            <h6>Metodos de pago:</h6>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Seleccione...
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Paypal</a>
-                <a class="dropdown-item" href="#">WebPay</a>
-                <a class="dropdown-item" href="#">Targeta Registrada</a>
-              </div>
-            </div>
-          </div>
-       	    <form action="" method="POST" class="" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
-          </form>
-          <p></p>
-          <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
-        </div>
-      </div>
       </div>
       <div class="col-sm-8 flex-column mt-3 text-center">
         {% for aux in listar_carrito %}
-        <table class="table mt-3">
-          <thead class="thead-dark">
-          </thead>
-          <tbody>
-            <tr class="table-warning">
-              <td>
               <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
               <div class="row no-gutters">
                 <div class="col-sm-4">
@@ -48,90 +16,113 @@
                 </div>
                 <div class="col-sm-8">
                   <div class="card-body">
-                    <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
-                    <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
-                    <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
-                    <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h5 class="card-title">Nombre: {{ aux.producto.nombre }}&nbsp;|&nbsp;Tipo: {{ aux.producto.tipo }}</h5>
+                    <p class="card-text">Codigo: {{ aux.producto.codigo }}&nbsp;|&nbsp;Stock: {{ aux.producto.stock }} </p>
+                    <p class="card-text">Marca: {{ aux.producto.marca }}&nbsp;|&nbsp;Cantidad: {{ aux.cantidad}} </p>
+                    <p class="card-text">Precio: ${{ aux.producto.precio }}&nbsp;|&nbsp;Descripcion: { aux.producto.descripcion }} </p>
                     <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
                   </div>
                 </div>
               </div>
             </div> 
-          </td>
-          </tbody>
-        </table>
           {% endfor %}
         </div>
     </div>
       <div class="col-sm-2">
       </div>
-    </div>
-</div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <div class="card" style="width:350px">
+            <div class="card-body">
+              <h4 class="card-title">Total de la compra</h4>
+              <p class="card-text">Descuento: ${{ descuento }} </p>
+              <p class="card-text">Total a pagar: ${{ totalsub }}</p>
+              <div class="payMethod mb-3 mt-3">
+                <h6>Metodos de pago:</h6>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Seleccione...
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Paypal</a>
+                    <a class="dropdown-item" href="#">WebPay</a>
+                    <a class="dropdown-item" href="#">Targeta Registrada</a>
+                  </div>
+                </div>
+              </div>
+                 <form action="" method="POST" class="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
+              </form>
+              <p></p>
+              <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+  </div>
 {% elif usuario == 0 %}
 <div class="container-fluid  text-center">
   <h2 style="color:black;">Carrito de compras</h2>
   <p style="color: black;">Puedes revisar tur productos seleccionados antes de pagarlos aqui</p>
   <div class="row">
     <div class="col-sm-2 flex-column mt-5 text-center">
-      <div class="card" style="width:350px">
-        <div class="card-body">
-          <h4 class="card-title">Total de la compra</h4>
-          <p class="card-text">{{ no_sus }}</p>
-          <p class="card-text">Total a pagar: ${{ total }}</p>
-          <div class="payMethod mb-3 mt-3">
-            <h6>Metodos de pago:</h6>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Seleccione...
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Paypal</a>
-                <a class="dropdown-item" href="#">WebPay</a>
-                <a class="dropdown-item" href="#">Targeta Registrada</a>
-              </div>
-            </div>
-          </div>
-             <form action="" method="POST" class="" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
-            </form>
-            <p></p>
-          <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
-        </div>
-    </div>
       </div>
       <div class="col-sm-8 flex-column mt-3 text-center">
         {% for aux in listar_carrito %}        
-        <table class="table mt-3">
-          <thead class="thead-dark">
-          </thead>
-          <tbody>
-            <tr class="table-warning">
-              <td>
-              <div class="card mb-3 ml-5" style="width: auto; height: 300px; margin: auto auto;">
+              <div class="card mb-3 ml-5" style="width: auto; height: auto; margin: auto auto;">
               <div class="row no-gutters">
                 <div class="col-sm-4">
-                  <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 300px;">
+                  <img src="{{ aux.producto.imagen.url }}" class="card-img" alt="..." style="height: 250px;">
                 </div>
                 <div class="col-sm-8">
                   <div class="card-body">
-                    <h5 class="card-title">{{ aux.producto.nombre }}&nbsp;|&nbsp;{{ aux.producto.tipo }}</h5>
-                    <p class="card-text">{{ aux.producto.codigo }}&nbsp;|&nbsp;{{ aux.producto.stock }} </p>
-                    <p class="card-text">{{ aux.producto.marca }}&nbsp;|&nbsp;{{ aux.cantidad}} </p>
-                    <p class="card-text">${{ aux.producto.precio }}&nbsp;|&nbsp;{{ aux.producto.descripcion }} </p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h5 class="card-title">Nombre: {{ aux.producto.nombre }}&nbsp;|&nbsp;Tipo: {{ aux.producto.tipo }}</h5>
+                    <p class="card-text">Codigo: {{ aux.producto.codigo }}&nbsp;|&nbsp;Stock: {{ aux.producto.stock }} </p>
+                    <p class="card-text">Marca: {{ aux.producto.marca }}&nbsp;|&nbsp;Cantidad: {{ aux.cantidad}} </p>
+                    <p class="card-text">Precio: ${{ aux.producto.precio }}&nbsp;|&nbsp;Descripcion: {{ aux.producto.descripcion }} </p>
                     <a href="{% url 'delete_item' aux.producto.codigo %}" class="btn btn-danger">Eliminar item</a>
                   </div>
                 </div>
               </div>
             </div> 
-            </td>
-          </tbody>
-        </table>
           {% endfor %}
       </div>
       <div class="col-sm-2">
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+          <div class="card" style="width:350px">
+            <div class="card-body">
+              <h4 class="card-title">Total de la compra</h4>
+              <p class="card-text">{{ no_sus }}</p>
+              <p class="card-text">Total a pagar: ${{ total }}</p>
+              <div class="payMethod mb-3 mt-3">
+                <h6>Metodos de pago:</h6>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Seleccione...
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Paypal</a>
+                    <a class="dropdown-item" href="#">WebPay</a>
+                    <a class="dropdown-item" href="#">Targeta Registrada</a>
+                  </div>
+                </div>
+              </div>
+                 <form action="" method="POST" class="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-success  mt-3" value="Pagar!">
+                </form>
+                <p></p>
+              <a href="{% url 'limpiar_carrito' %}" class="btn btn-danger">Limpiar carrito</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-2"></div>
       </div>
       </div>
     </div>

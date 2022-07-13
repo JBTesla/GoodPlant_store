@@ -37,7 +37,7 @@
               {{ form|crispy }}
               <td>
               <input type="submit"  class="btn btn-success mt-3" name="btnEnviar" id="btnEnviar">
-              <meta http-equiv="refresh" content="5; url={% url 'suscribe' %}" />
+              <meta http-equiv="refresh" content="5; url={% url 'suscribe' user.username %}" />
               </td>
           </table>
       </form>

@@ -50,9 +50,6 @@
               <a class="nav-link" href="{% url 'cart' user.id %}">Carrito de compras</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalFundacion">Unete a la Fundacion</a>
-              </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#ModalContacto2"> Contacto</a>
             </li>
           </ul>
@@ -82,7 +79,7 @@
                         {% endif %}
                         {% if user.is_staff == 0 %}
                         <li class="nav-item mt-1">
-                          <a class="nav-link" href="{% url 'suscribe'%}"><i class="fa-brands fa-gratipay"></i> suscripcion</a>
+                          <a class="nav-link" href="{% url 'suscribe' user.username %}"><i class="fa-brands fa-gratipay"></i> suscripcion</a>
                         </li>
                         {% endif %}
                         {% if perms.app.add_producto %}

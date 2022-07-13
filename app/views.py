@@ -27,7 +27,6 @@ def index(request):
 def perfil(request):
     return render(request, 'app/Usuario/perfilUsuario.html')
 @login_required
-@permission_required('app.add_usuario')
 def agregar_usuario(request):
     datos={
         'form' : usuarioForm()
@@ -38,15 +37,14 @@ def agregar_usuario(request):
             formulario.save()
             messages.success(request,'Usuario guardado correctamente!')
     return render(request, 'app/Administrador/agregar_usuarios.html',datos)
+ 
 @login_required
-@permission_required('app.add_usuario')
 def listar_usuario(request):
     usuarioALL= Usuario.objects.all()
     datos ={'lista_usuario' :usuarioALL,
             } 
     return render(request, 'app/Administrador/listar_usuarios.html',datos)
 @login_required
-@permission_required('app.add_usuario')
 def modificar_usuario(request, rut):
     usuario = Usuario.objects.get(rut=rut)
     datos={
@@ -81,23 +79,29 @@ def historial(request, id):
     return render(request, 'app/Usuario/historialCompras.html',datos)
 
 @login_required
-def suscripcion(request):
+def suscripcion(request, username):
 
-    suscripcion = Suscripcion.objects.all()
+    suscripcion = Suscripcion.objects.filter(username=username)
 
     datos={'listar_suscripcion':suscripcion,
             'form': suscripcionForm(),
             'usuario' : 0
     }
-    usuario= request.user.username
-    if Suscripcion.objects.filter(username=usuario).exists():
-        datos['usuario'] = 1
+    susvalida=Suscripcion.objects.filter(username=username).get()
+    if Suscripcion.objects.filter(username=username).exists():
+        if susvalida.is_suscrito == True:
+            datos['usuario'] = 1
+        else:
+            datos['usuario'] = 0
 
     if request.method == 'POST':
-        suscrito=Suscripcion()
-        suscrito.username = request.POST.get('username')
-        suscrito.is_suscrito = True
-        suscrito.save()
+        if Suscripcion.objects.filter(username=username).exists():
+            Suscripcion.objects.filter(username=username).update(is_suscrito= True)
+        else:    
+            suscrito=Suscripcion()
+            suscrito.username = request.POST.get('username')
+            suscrito.is_suscrito = True
+            suscrito.save()
 
     return render(request, 'app/Usuario/suscripcion.html',datos)
 
@@ -109,10 +113,13 @@ def listar_suscripcion(request):
 
 @login_required
 def eliminar_suscripcion(request, username):
-    suscripcion=Suscripcion.objects.get(username=username)
-    suscripcion.delete()
+    suscripcion = Suscripcion.objects.all()
 
-    return redirect(to="suscribe")
+    suscripcion=Suscripcion.objects.get(username=username)
+    suscripcion.is_suscrito = False
+    suscripcion.save()
+
+    return redirect('/suscripcion/'+username)
 @login_required
 def seguimiento_despacho(request, id):
     
@@ -204,7 +211,7 @@ def productos(request):
                 productoA.save()
             else:
                 producto.stock == 0
-                productoA.save()
+                productoA.delete()
 
     return render(request, 'app/Usuario/productos.html', datos, )
 
@@ -263,13 +270,15 @@ def carrito(request, id):
 
     usuario = request.user.username
     usuario_id = request.user.id
-    if Suscripcion.objects.filter(username=usuario).exists():
+    susvalida=Suscripcion.objects.filter(username=usuario).get()
+    if susvalida.is_suscrito == True:
         datos['usuario'] = 1
         for cart in lista:
             datos['totalsub']= round((cart.producto.precio * cart.cantidad +datos['total'])*0.95)
             datos['total']= cart.producto.precio * cart.cantidad + datos['total']
             datos['descuento']=round(datos['total']*0.05)
     else:
+        datos['usuario'] = 0
         for cart in lista:
             datos['total']= cart.producto.precio * cart.cantidad + datos['total']
             datos['no_sus']="Debes estar suscrito"
@@ -277,7 +286,10 @@ def carrito(request, id):
     if request.method == 'POST':
         compra= Despacho()
         compra.usuario = usuario_id
-        compra.total_compra= datos['total']
+        if susvalida.is_suscrito == True:
+            compra.total_compra= datos['totalsub']
+        else:
+            compra.total_compra= datos['total']
         compra.estado ="pago verificado"
         compra.save()
         compraid=compra.id
@@ -330,6 +342,10 @@ def register(request):
     if request.method == 'POST':
         formulario = FormularioUserResgistro(data=request.POST)
         if formulario.is_valid():
+            suscrito=Suscripcion()
+            suscrito.username = request.POST.get('username')
+            suscrito.is_suscrito = False
+            suscrito.save()
             formulario.save()
             #user = authenticate(username=formulario.cleaned_data["username"],password=formulario.cleaned_data["password1"])
             #login(request,user)
@@ -341,10 +357,10 @@ def register(request):
     return render(request, 'registration/registro.html', datos)
 
 def apiCustom(request):
-    response = requests.get('https://rickandmortyapi.com/api/character?page=2').json()
-    response2 = requests.get('https://digimon-api.vercel.app/api/digimon').json()
-    datos = {'listaJsonRM' : response,
-             'listaJsonDm' : response2
+    response = requests.get('https://thesimpsonsquoteapi.glitch.me/quotes?count=15').json()
+    #response2 = requests.get('https://digimon-api.vercel.app/api/digimon').json()
+    datos = {'listaJsonLs' : response,
+             #'listaJsonDm' : response2
     }
 
     return render(request, 'app/Usuario/apiCustom.html', datos)
